@@ -13,7 +13,7 @@
 #include "object_pool.h"
 
 
-namespace oneflow {
+namespace dataflow {
 class ObjectPool_Test : public ::testing::Test {
 public:
   void SetUp() {}

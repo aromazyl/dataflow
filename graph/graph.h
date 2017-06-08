@@ -10,7 +10,7 @@
 
 #include "object_pool.h"
 
-namespace oneflow {
+namespace dataflow {
 
 struct Node;
 struct NodeInfo;

@@ -10,7 +10,7 @@
 #include <gtest/gtest.h>
 #include <glog/logging.h>
 
-namespace oneflow {
+namespace dataflow {
 class GraphTokenTest : public ::testing::Test {
 public:
   void SetUp() {}

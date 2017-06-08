@@ -11,7 +11,7 @@
 #include <queue>
 #include <unordered_set>
 
-namespace oneflow {
+namespace dataflow {
 
 class ObjectPool_Test;
 
