@@ -15,7 +15,7 @@
 #include <iostream>
 #include "./graph.h"
 
-namespace oneflow {
+namespace dataflow {
 
 struct Tree {
   std::string key;
