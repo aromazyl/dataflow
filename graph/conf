@@ -1,0 +1,12 @@
+{
+  info {
+    nodeid : 5
+    nodename : xxx
+  }
+  neibor {
+    neibor : 1
+    neibor : 2
+    neibor : 3
+    neibor : 4
+  }
+}
