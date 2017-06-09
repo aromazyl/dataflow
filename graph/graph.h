@@ -8,16 +8,16 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
+#include "logic.hpp"
 #include "object_pool.h"
+#include "caffe.pb.h"
 
 namespace dataflow {
 
 struct Node;
 struct NodeInfo;
-struct NodeOps;
 struct Edge;
 struct EdgeInfo;
-struct EdgeOps;
 struct Graph;
 
 enum NodeType {
@@ -28,25 +28,14 @@ struct NodeInfo {
   char name[50];
   int is_src;
   int is_sink;
+  LayerProto* layer_info;
   std::vector<int> out_neighbors;
   std::vector<int> in_neighbors;
 };
 
-
-
-struct NodeOps {
-  static Node* MakeNode(const NodeInfo& info) {}
-  static NodeInfo* GetNodeInfo(const Node& node) {}
-  static bool CheckValidNode(const Node& node) {}
-  static Node* SetNodeInfo(Node* node, const NodeInfo& info) {}
-};
-
 struct Node {
   NodeInfo info;
-  int& GetId() { return info.id; }
   std::string& GetName() { return info.name; }
-  std::vector<int>& OutNeigbors() { return info.out_neighbors; }
-  std::vector<int>& InNeigbors() { return info.in_neighbors; }
 };
 
 struct EdgeInfo {
@@ -57,23 +46,20 @@ struct EdgeInfo {
 
 struct Edge {
   EdgeInfo info;
-  int& GetId() { return info.id; }
-  std::string& GetName() { return info.name; }
-  int& Src() { return info.src; }
-  int& Dst() { return info.dst; }
-};
-
-struct EdgeOps {
-  static Edge* MakeEdge(const EdgeInfo& info);
-  static EdgeInfo* GetEdgeInfo(const Edge& edge);
-  static bool CheckValidEdge(const Edge& edge);
-  static Node* SetEdgeInfo(Edge* edge, const EdgeInfo& info);
 };
 
 class Graph {
 public:
   Graph() {}
   ~Graph() {}
+
+public:
+  void SetNetDefinition(const caffe::NetProto* proto);
+  void BuildNet();
+
+private:
+  Node* CreateNode(const caffe::LayerProto& proto);
+  void BuildEdges();
 
 public:
   static ObjectPool<Node> node_pool_;
@@ -84,6 +70,10 @@ public:
   std::unordered_map<int, Node*> nodes_;
 
 };
+
+
+};
+
 }
 
 #endif /* !GRAPH_H */
