@@ -8,6 +8,8 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
+#include <string>
+#include <unordered_map>
 #include "logic.hpp"
 #include "object_pool.h"
 #include "caffe.pb.h"
@@ -21,21 +23,39 @@ struct EdgeInfo;
 struct Graph;
 
 enum NodeType {
+  Convolution = 0,
+  Loader,
+  InnerProduct,
+  Pooling,
+  ReLU,
+  LRN,
+  Sigmoid,
+  Softmax,
+  MultinomialLogisticLoss,
+  Split,
+  Concat,
+  BatchNorm,
+  ModelUpdate,
+  NullUpdate,
+  Store,
+  LoadPartialModel,
+  Placeholder
 };
 
+
 struct NodeInfo {
+  NodeType type;
   int id;
-  char name[50];
-  int is_src;
-  int is_sink;
-  LayerProto* layer_info;
-  std::vector<int> out_neighbors;
-  std::vector<int> in_neighbors;
+  std::string name;
+  bool is_src;
+  bool is_sink;
+  std::vector<std::string> out_nodes;
+  std::vector<std::string> in_nodes;
 };
 
 struct Node {
   NodeInfo info;
-  std::string& GetName() { return info.name; }
+  LayerProto proto;
 };
 
 struct EdgeInfo {
@@ -50,27 +70,36 @@ struct Edge {
 
 class Graph {
 public:
+  static Graph* CreateGraphByConfigFile(const std::string& config);
+  static Graph* CreateGraphByNetConfig(const caffe::NetParameter& confg);
+
+public:
   Graph() {}
   ~Graph() {}
 
+
 public:
-  void SetNetDefinition(const caffe::NetProto* proto);
+  void SetNetDefinition(const caffe::NetParameter& param);
   void BuildNet();
 
 private:
-  Node* CreateNode(const caffe::LayerProto& proto);
+  Node* CreateNode(const caffe::LayerProto& proto, int index);
+  Edge* CreateEdge(int src, int sink, int index);
   void BuildEdges();
 
 public:
   static ObjectPool<Node> node_pool_;
   static ObjectPool<Edge> edge_pool_;
+
+  std::unordered_map<std::string, int> edge_index_;
+  std::unordered_map<std::string, int> node_index_;
   // id to edges
   std::unordered_map<int, Edge*> edges_;
   // id to nodes
   std::unordered_map<int, Node*> nodes_;
 
+  static std::unordered_map<std::string, NodeType> kLayerNameToNodeType;
 };
-
 
 };
 
