@@ -1,3 +1,3 @@
 # proto:
-caffe.proto
-googlenet_train_light.prototxt.example
+dataflow.proto
+googlenet.prototxt
