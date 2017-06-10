@@ -19,6 +19,10 @@
 
 namespace dataflow {
 class NodeDefDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<NodeDef> {
+  public:
+  const ::dataflow::ConvolutionOpProto* convolution_proto_;
+  const ::dataflow::LoaderOpProto* loader_proto_;
+  const ::dataflow::InnerProductOpProto* innerproduct_proto_;
 } _NodeDef_default_instance_;
 class ConvolutionOpProtoDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<ConvolutionOpProto> {
 } _ConvolutionOpProto_default_instance_;
@@ -40,11 +44,13 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(NodeDef, _internal_metadata_),
   ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(NodeDef, _oneof_case_[0]),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(NodeDef, name_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(NodeDef, convolution_proto_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(NodeDef, loader_proto_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(NodeDef, innerproduct_proto_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(NodeDef, type_),
+  PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET((&_NodeDef_default_instance_), convolution_proto_),
+  PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET((&_NodeDef_default_instance_), loader_proto_),
+  PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET((&_NodeDef_default_instance_), innerproduct_proto_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(NodeDef, opDef_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ConvolutionOpProto, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -75,9 +81,9 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
 
 static const ::google::protobuf::internal::MigrationSchema schemas[] = {
   { 0, -1, sizeof(NodeDef)},
-  { 8, -1, sizeof(ConvolutionOpProto)},
-  { 18, -1, sizeof(LoaderOpProto)},
-  { 27, -1, sizeof(InnerProductOpProto)},
+  { 10, -1, sizeof(ConvolutionOpProto)},
+  { 20, -1, sizeof(LoaderOpProto)},
+  { 29, -1, sizeof(InnerProductOpProto)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -129,11 +135,11 @@ void TableStruct::InitDefaultsImpl() {
   _ConvolutionOpProto_default_instance_.DefaultConstruct();
   _LoaderOpProto_default_instance_.DefaultConstruct();
   _InnerProductOpProto_default_instance_.DefaultConstruct();
-  _NodeDef_default_instance_.get_mutable()->convolution_proto_ = const_cast< ::dataflow::ConvolutionOpProto*>(
+  _NodeDef_default_instance_.convolution_proto_ = const_cast< ::dataflow::ConvolutionOpProto*>(
       ::dataflow::ConvolutionOpProto::internal_default_instance());
-  _NodeDef_default_instance_.get_mutable()->loader_proto_ = const_cast< ::dataflow::LoaderOpProto*>(
+  _NodeDef_default_instance_.loader_proto_ = const_cast< ::dataflow::LoaderOpProto*>(
       ::dataflow::LoaderOpProto::internal_default_instance());
-  _NodeDef_default_instance_.get_mutable()->innerproduct_proto_ = const_cast< ::dataflow::InnerProductOpProto*>(
+  _NodeDef_default_instance_.innerproduct_proto_ = const_cast< ::dataflow::InnerProductOpProto*>(
       ::dataflow::InnerProductOpProto::internal_default_instance());
 }
 
@@ -144,22 +150,23 @@ void InitDefaults() {
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] = {
-      "\n\016dataflow.proto\022\010dataflow\"\272\001\n\007NodeDef\022\014"
-      "\n\004name\030\001 \001(\t\0227\n\021convolution_proto\030\002 \001(\0132"
-      "\034.dataflow.ConvolutionOpProto\022-\n\014loader_"
-      "proto\030\003 \001(\0132\027.dataflow.LoaderOpProto\0229\n\022"
-      "innerproduct_proto\030\004 \001(\0132\035.dataflow.Inne"
-      "rProductOpProto\"s\n\022ConvolutionOpProto\022\022\n"
-      "\nnum_output\030\001 \001(\r\022\013\n\003pad\030\002 \001(\r\022\023\n\013kernel"
-      "_size\030\003 \001(\r\022\016\n\006stride\030\004 \001(\r\022\n\n\002in\030\005 \001(\t\022"
-      "\013\n\003out\030\006 \001(\t\"\\\n\rLoaderOpProto\022\014\n\004data\030\001 "
-      "\001(\t\022\r\n\005label\030\002 \001(\t\022\017\n\007channel\030\003 \001(\r\022\016\n\006h"
-      "eight\030\004 \001(\r\022\r\n\005width\030\005 \001(\r\"B\n\023InnerProdu"
-      "ctOpProto\022\022\n\nnum_output\030\001 \001(\r\022\n\n\002in\030\002 \001("
-      "\t\022\013\n\003out\030\003 \001(\tb\006proto3"
+      "\n\016dataflow.proto\022\010dataflow\"\327\001\n\007NodeDef\022\014"
+      "\n\004name\030\001 \001(\t\022\014\n\004type\030\002 \001(\t\0229\n\021convolutio"
+      "n_proto\030\003 \001(\0132\034.dataflow.ConvolutionOpPr"
+      "otoH\000\022/\n\014loader_proto\030\004 \001(\0132\027.dataflow.L"
+      "oaderOpProtoH\000\022;\n\022innerproduct_proto\030\005 \001"
+      "(\0132\035.dataflow.InnerProductOpProtoH\000B\007\n\005o"
+      "pDef\"s\n\022ConvolutionOpProto\022\022\n\nnum_output"
+      "\030\001 \001(\r\022\013\n\003pad\030\002 \001(\r\022\023\n\013kernel_size\030\003 \001(\r"
+      "\022\016\n\006stride\030\004 \001(\r\022\n\n\002in\030\005 \001(\t\022\013\n\003out\030\006 \001("
+      "\t\"\\\n\rLoaderOpProto\022\014\n\004data\030\001 \001(\t\022\r\n\005labe"
+      "l\030\002 \001(\t\022\017\n\007channel\030\003 \001(\r\022\016\n\006height\030\004 \001(\r"
+      "\022\r\n\005width\030\005 \001(\r\"B\n\023InnerProductOpProto\022\022"
+      "\n\nnum_output\030\001 \001(\r\022\n\n\002in\030\002 \001(\t\022\013\n\003out\030\003 "
+      "\001(\tb\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 502);
+      descriptor, 531);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "dataflow.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
@@ -183,6 +190,7 @@ struct StaticDescriptorInitializer {
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int NodeDef::kNameFieldNumber;
+const int NodeDef::kTypeFieldNumber;
 const int NodeDef::kConvolutionProtoFieldNumber;
 const int NodeDef::kLoaderProtoFieldNumber;
 const int NodeDef::kInnerproductProtoFieldNumber;
@@ -205,28 +213,35 @@ NodeDef::NodeDef(const NodeDef& from)
   if (from.name().size() > 0) {
     name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
   }
-  if (from.has_convolution_proto()) {
-    convolution_proto_ = new ::dataflow::ConvolutionOpProto(*from.convolution_proto_);
-  } else {
-    convolution_proto_ = NULL;
+  type_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.type().size() > 0) {
+    type_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.type_);
   }
-  if (from.has_loader_proto()) {
-    loader_proto_ = new ::dataflow::LoaderOpProto(*from.loader_proto_);
-  } else {
-    loader_proto_ = NULL;
-  }
-  if (from.has_innerproduct_proto()) {
-    innerproduct_proto_ = new ::dataflow::InnerProductOpProto(*from.innerproduct_proto_);
-  } else {
-    innerproduct_proto_ = NULL;
+  clear_has_opDef();
+  switch (from.opDef_case()) {
+    case kConvolutionProto: {
+      mutable_convolution_proto()->::dataflow::ConvolutionOpProto::MergeFrom(from.convolution_proto());
+      break;
+    }
+    case kLoaderProto: {
+      mutable_loader_proto()->::dataflow::LoaderOpProto::MergeFrom(from.loader_proto());
+      break;
+    }
+    case kInnerproductProto: {
+      mutable_innerproduct_proto()->::dataflow::InnerProductOpProto::MergeFrom(from.innerproduct_proto());
+      break;
+    }
+    case OPDEF_NOT_SET: {
+      break;
+    }
   }
   // @@protoc_insertion_point(copy_constructor:dataflow.NodeDef)
 }
 
 void NodeDef::SharedCtor() {
   name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&convolution_proto_, 0, reinterpret_cast<char*>(&innerproduct_proto_) -
-    reinterpret_cast<char*>(&convolution_proto_) + sizeof(innerproduct_proto_));
+  type_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  clear_has_opDef();
   _cached_size_ = 0;
 }
 
@@ -237,14 +252,9 @@ NodeDef::~NodeDef() {
 
 void NodeDef::SharedDtor() {
   name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) {
-    delete convolution_proto_;
-  }
-  if (this != internal_default_instance()) {
-    delete loader_proto_;
-  }
-  if (this != internal_default_instance()) {
-    delete innerproduct_proto_;
+  type_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (has_opDef()) {
+    clear_opDef();
   }
 }
 
@@ -271,21 +281,34 @@ NodeDef* NodeDef::New(::google::protobuf::Arena* arena) const {
   return n;
 }
 
+void NodeDef::clear_opDef() {
+// @@protoc_insertion_point(one_of_clear_start:dataflow.NodeDef)
+  switch (opDef_case()) {
+    case kConvolutionProto: {
+      delete opDef_.convolution_proto_;
+      break;
+    }
+    case kLoaderProto: {
+      delete opDef_.loader_proto_;
+      break;
+    }
+    case kInnerproductProto: {
+      delete opDef_.innerproduct_proto_;
+      break;
+    }
+    case OPDEF_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[0] = OPDEF_NOT_SET;
+}
+
+
 void NodeDef::Clear() {
 // @@protoc_insertion_point(message_clear_start:dataflow.NodeDef)
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (GetArenaNoVirtual() == NULL && convolution_proto_ != NULL) {
-    delete convolution_proto_;
-  }
-  convolution_proto_ = NULL;
-  if (GetArenaNoVirtual() == NULL && loader_proto_ != NULL) {
-    delete loader_proto_;
-  }
-  loader_proto_ = NULL;
-  if (GetArenaNoVirtual() == NULL && innerproduct_proto_ != NULL) {
-    delete innerproduct_proto_;
-  }
-  innerproduct_proto_ = NULL;
+  type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  clear_opDef();
 }
 
 bool NodeDef::MergePartialFromCodedStream(
@@ -313,9 +336,24 @@ bool NodeDef::MergePartialFromCodedStream(
         break;
       }
 
-      // .dataflow.ConvolutionOpProto convolution_proto = 2;
+      // string type = 2;
       case 2: {
         if (tag == 18u) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_type()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->type().data(), this->type().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "dataflow.NodeDef.type"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // .dataflow.ConvolutionOpProto convolution_proto = 3;
+      case 3: {
+        if (tag == 26u) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_convolution_proto()));
         } else {
@@ -324,9 +362,9 @@ bool NodeDef::MergePartialFromCodedStream(
         break;
       }
 
-      // .dataflow.LoaderOpProto loader_proto = 3;
-      case 3: {
-        if (tag == 26u) {
+      // .dataflow.LoaderOpProto loader_proto = 4;
+      case 4: {
+        if (tag == 34u) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_loader_proto()));
         } else {
@@ -335,9 +373,9 @@ bool NodeDef::MergePartialFromCodedStream(
         break;
       }
 
-      // .dataflow.InnerProductOpProto innerproduct_proto = 4;
-      case 4: {
-        if (tag == 34u) {
+      // .dataflow.InnerProductOpProto innerproduct_proto = 5;
+      case 5: {
+        if (tag == 42u) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_innerproduct_proto()));
         } else {
@@ -380,22 +418,32 @@ void NodeDef::SerializeWithCachedSizes(
       1, this->name(), output);
   }
 
-  // .dataflow.ConvolutionOpProto convolution_proto = 2;
-  if (this->has_convolution_proto()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, *this->convolution_proto_, output);
+  // string type = 2;
+  if (this->type().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->type().data(), this->type().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dataflow.NodeDef.type");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->type(), output);
   }
 
-  // .dataflow.LoaderOpProto loader_proto = 3;
-  if (this->has_loader_proto()) {
+  // .dataflow.ConvolutionOpProto convolution_proto = 3;
+  if (has_convolution_proto()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      3, *this->loader_proto_, output);
+      3, *opDef_.convolution_proto_, output);
   }
 
-  // .dataflow.InnerProductOpProto innerproduct_proto = 4;
-  if (this->has_innerproduct_proto()) {
+  // .dataflow.LoaderOpProto loader_proto = 4;
+  if (has_loader_proto()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      4, *this->innerproduct_proto_, output);
+      4, *opDef_.loader_proto_, output);
+  }
+
+  // .dataflow.InnerProductOpProto innerproduct_proto = 5;
+  if (has_innerproduct_proto()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      5, *opDef_.innerproduct_proto_, output);
   }
 
   // @@protoc_insertion_point(serialize_end:dataflow.NodeDef)
@@ -416,25 +464,36 @@ void NodeDef::SerializeWithCachedSizes(
         1, this->name(), target);
   }
 
-  // .dataflow.ConvolutionOpProto convolution_proto = 2;
-  if (this->has_convolution_proto()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      InternalWriteMessageNoVirtualToArray(
-        2, *this->convolution_proto_, false, target);
+  // string type = 2;
+  if (this->type().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->type().data(), this->type().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dataflow.NodeDef.type");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->type(), target);
   }
 
-  // .dataflow.LoaderOpProto loader_proto = 3;
-  if (this->has_loader_proto()) {
+  // .dataflow.ConvolutionOpProto convolution_proto = 3;
+  if (has_convolution_proto()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        3, *this->loader_proto_, false, target);
+        3, *opDef_.convolution_proto_, false, target);
   }
 
-  // .dataflow.InnerProductOpProto innerproduct_proto = 4;
-  if (this->has_innerproduct_proto()) {
+  // .dataflow.LoaderOpProto loader_proto = 4;
+  if (has_loader_proto()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        4, *this->innerproduct_proto_, false, target);
+        4, *opDef_.loader_proto_, false, target);
+  }
+
+  // .dataflow.InnerProductOpProto innerproduct_proto = 5;
+  if (has_innerproduct_proto()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        5, *opDef_.innerproduct_proto_, false, target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:dataflow.NodeDef)
@@ -452,27 +511,39 @@ size_t NodeDef::ByteSizeLong() const {
         this->name());
   }
 
-  // .dataflow.ConvolutionOpProto convolution_proto = 2;
-  if (this->has_convolution_proto()) {
+  // string type = 2;
+  if (this->type().size() > 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->convolution_proto_);
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->type());
   }
 
-  // .dataflow.LoaderOpProto loader_proto = 3;
-  if (this->has_loader_proto()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->loader_proto_);
+  switch (opDef_case()) {
+    // .dataflow.ConvolutionOpProto convolution_proto = 3;
+    case kConvolutionProto: {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          *opDef_.convolution_proto_);
+      break;
+    }
+    // .dataflow.LoaderOpProto loader_proto = 4;
+    case kLoaderProto: {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          *opDef_.loader_proto_);
+      break;
+    }
+    // .dataflow.InnerProductOpProto innerproduct_proto = 5;
+    case kInnerproductProto: {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          *opDef_.innerproduct_proto_);
+      break;
+    }
+    case OPDEF_NOT_SET: {
+      break;
+    }
   }
-
-  // .dataflow.InnerProductOpProto innerproduct_proto = 4;
-  if (this->has_innerproduct_proto()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->innerproduct_proto_);
-  }
-
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -503,14 +574,26 @@ void NodeDef::MergeFrom(const NodeDef& from) {
 
     name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
   }
-  if (from.has_convolution_proto()) {
-    mutable_convolution_proto()->::dataflow::ConvolutionOpProto::MergeFrom(from.convolution_proto());
+  if (from.type().size() > 0) {
+
+    type_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.type_);
   }
-  if (from.has_loader_proto()) {
-    mutable_loader_proto()->::dataflow::LoaderOpProto::MergeFrom(from.loader_proto());
-  }
-  if (from.has_innerproduct_proto()) {
-    mutable_innerproduct_proto()->::dataflow::InnerProductOpProto::MergeFrom(from.innerproduct_proto());
+  switch (from.opDef_case()) {
+    case kConvolutionProto: {
+      mutable_convolution_proto()->::dataflow::ConvolutionOpProto::MergeFrom(from.convolution_proto());
+      break;
+    }
+    case kLoaderProto: {
+      mutable_loader_proto()->::dataflow::LoaderOpProto::MergeFrom(from.loader_proto());
+      break;
+    }
+    case kInnerproductProto: {
+      mutable_innerproduct_proto()->::dataflow::InnerProductOpProto::MergeFrom(from.innerproduct_proto());
+      break;
+    }
+    case OPDEF_NOT_SET: {
+      break;
+    }
   }
 }
 
@@ -538,9 +621,9 @@ void NodeDef::Swap(NodeDef* other) {
 }
 void NodeDef::InternalSwap(NodeDef* other) {
   name_.Swap(&other->name_);
-  std::swap(convolution_proto_, other->convolution_proto_);
-  std::swap(loader_proto_, other->loader_proto_);
-  std::swap(innerproduct_proto_, other->innerproduct_proto_);
+  type_.Swap(&other->type_);
+  std::swap(opDef_, other->opDef_);
+  std::swap(_oneof_case_[0], other->_oneof_case_[0]);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
@@ -604,123 +687,211 @@ void NodeDef::set_allocated_name(::std::string* name) {
   // @@protoc_insertion_point(field_set_allocated:dataflow.NodeDef.name)
 }
 
-// .dataflow.ConvolutionOpProto convolution_proto = 2;
-bool NodeDef::has_convolution_proto() const {
-  return this != internal_default_instance() && convolution_proto_ != NULL;
+// string type = 2;
+void NodeDef::clear_type() {
+  type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void NodeDef::clear_convolution_proto() {
-  if (GetArenaNoVirtual() == NULL && convolution_proto_ != NULL) delete convolution_proto_;
-  convolution_proto_ = NULL;
+const ::std::string& NodeDef::type() const {
+  // @@protoc_insertion_point(field_get:dataflow.NodeDef.type)
+  return type_.GetNoArena();
 }
-const ::dataflow::ConvolutionOpProto& NodeDef::convolution_proto() const {
-  // @@protoc_insertion_point(field_get:dataflow.NodeDef.convolution_proto)
-  return convolution_proto_ != NULL ? *convolution_proto_
-                         : *::dataflow::ConvolutionOpProto::internal_default_instance();
-}
-::dataflow::ConvolutionOpProto* NodeDef::mutable_convolution_proto() {
+void NodeDef::set_type(const ::std::string& value) {
   
-  if (convolution_proto_ == NULL) {
-    convolution_proto_ = new ::dataflow::ConvolutionOpProto;
-  }
-  // @@protoc_insertion_point(field_mutable:dataflow.NodeDef.convolution_proto)
-  return convolution_proto_;
+  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dataflow.NodeDef.type)
 }
-::dataflow::ConvolutionOpProto* NodeDef::release_convolution_proto() {
-  // @@protoc_insertion_point(field_release:dataflow.NodeDef.convolution_proto)
+#if LANG_CXX11
+void NodeDef::set_type(::std::string&& value) {
   
-  ::dataflow::ConvolutionOpProto* temp = convolution_proto_;
-  convolution_proto_ = NULL;
-  return temp;
+  type_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:dataflow.NodeDef.type)
 }
-void NodeDef::set_allocated_convolution_proto(::dataflow::ConvolutionOpProto* convolution_proto) {
-  delete convolution_proto_;
-  convolution_proto_ = convolution_proto;
-  if (convolution_proto) {
+#endif
+void NodeDef::set_type(const char* value) {
+  
+  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dataflow.NodeDef.type)
+}
+void NodeDef::set_type(const char* value, size_t size) {
+  
+  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dataflow.NodeDef.type)
+}
+::std::string* NodeDef::mutable_type() {
+  
+  // @@protoc_insertion_point(field_mutable:dataflow.NodeDef.type)
+  return type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+::std::string* NodeDef::release_type() {
+  // @@protoc_insertion_point(field_release:dataflow.NodeDef.type)
+  
+  return type_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void NodeDef::set_allocated_type(::std::string* type) {
+  if (type != NULL) {
     
   } else {
     
+  }
+  type_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), type);
+  // @@protoc_insertion_point(field_set_allocated:dataflow.NodeDef.type)
+}
+
+// .dataflow.ConvolutionOpProto convolution_proto = 3;
+bool NodeDef::has_convolution_proto() const {
+  return opDef_case() == kConvolutionProto;
+}
+void NodeDef::set_has_convolution_proto() {
+  _oneof_case_[0] = kConvolutionProto;
+}
+void NodeDef::clear_convolution_proto() {
+  if (has_convolution_proto()) {
+    delete opDef_.convolution_proto_;
+    clear_has_opDef();
+  }
+}
+ const ::dataflow::ConvolutionOpProto& NodeDef::convolution_proto() const {
+  // @@protoc_insertion_point(field_get:dataflow.NodeDef.convolution_proto)
+  return has_convolution_proto()
+      ? *opDef_.convolution_proto_
+      : ::dataflow::ConvolutionOpProto::default_instance();
+}
+::dataflow::ConvolutionOpProto* NodeDef::mutable_convolution_proto() {
+  if (!has_convolution_proto()) {
+    clear_opDef();
+    set_has_convolution_proto();
+    opDef_.convolution_proto_ = new ::dataflow::ConvolutionOpProto;
+  }
+  // @@protoc_insertion_point(field_mutable:dataflow.NodeDef.convolution_proto)
+  return opDef_.convolution_proto_;
+}
+::dataflow::ConvolutionOpProto* NodeDef::release_convolution_proto() {
+  // @@protoc_insertion_point(field_release:dataflow.NodeDef.convolution_proto)
+  if (has_convolution_proto()) {
+    clear_has_opDef();
+    ::dataflow::ConvolutionOpProto* temp = opDef_.convolution_proto_;
+    opDef_.convolution_proto_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
+}
+void NodeDef::set_allocated_convolution_proto(::dataflow::ConvolutionOpProto* convolution_proto) {
+  clear_opDef();
+  if (convolution_proto) {
+    set_has_convolution_proto();
+    opDef_.convolution_proto_ = convolution_proto;
   }
   // @@protoc_insertion_point(field_set_allocated:dataflow.NodeDef.convolution_proto)
 }
 
-// .dataflow.LoaderOpProto loader_proto = 3;
+// .dataflow.LoaderOpProto loader_proto = 4;
 bool NodeDef::has_loader_proto() const {
-  return this != internal_default_instance() && loader_proto_ != NULL;
+  return opDef_case() == kLoaderProto;
+}
+void NodeDef::set_has_loader_proto() {
+  _oneof_case_[0] = kLoaderProto;
 }
 void NodeDef::clear_loader_proto() {
-  if (GetArenaNoVirtual() == NULL && loader_proto_ != NULL) delete loader_proto_;
-  loader_proto_ = NULL;
+  if (has_loader_proto()) {
+    delete opDef_.loader_proto_;
+    clear_has_opDef();
+  }
 }
-const ::dataflow::LoaderOpProto& NodeDef::loader_proto() const {
+ const ::dataflow::LoaderOpProto& NodeDef::loader_proto() const {
   // @@protoc_insertion_point(field_get:dataflow.NodeDef.loader_proto)
-  return loader_proto_ != NULL ? *loader_proto_
-                         : *::dataflow::LoaderOpProto::internal_default_instance();
+  return has_loader_proto()
+      ? *opDef_.loader_proto_
+      : ::dataflow::LoaderOpProto::default_instance();
 }
 ::dataflow::LoaderOpProto* NodeDef::mutable_loader_proto() {
-  
-  if (loader_proto_ == NULL) {
-    loader_proto_ = new ::dataflow::LoaderOpProto;
+  if (!has_loader_proto()) {
+    clear_opDef();
+    set_has_loader_proto();
+    opDef_.loader_proto_ = new ::dataflow::LoaderOpProto;
   }
   // @@protoc_insertion_point(field_mutable:dataflow.NodeDef.loader_proto)
-  return loader_proto_;
+  return opDef_.loader_proto_;
 }
 ::dataflow::LoaderOpProto* NodeDef::release_loader_proto() {
   // @@protoc_insertion_point(field_release:dataflow.NodeDef.loader_proto)
-  
-  ::dataflow::LoaderOpProto* temp = loader_proto_;
-  loader_proto_ = NULL;
-  return temp;
+  if (has_loader_proto()) {
+    clear_has_opDef();
+    ::dataflow::LoaderOpProto* temp = opDef_.loader_proto_;
+    opDef_.loader_proto_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
 }
 void NodeDef::set_allocated_loader_proto(::dataflow::LoaderOpProto* loader_proto) {
-  delete loader_proto_;
-  loader_proto_ = loader_proto;
+  clear_opDef();
   if (loader_proto) {
-    
-  } else {
-    
+    set_has_loader_proto();
+    opDef_.loader_proto_ = loader_proto;
   }
   // @@protoc_insertion_point(field_set_allocated:dataflow.NodeDef.loader_proto)
 }
 
-// .dataflow.InnerProductOpProto innerproduct_proto = 4;
+// .dataflow.InnerProductOpProto innerproduct_proto = 5;
 bool NodeDef::has_innerproduct_proto() const {
-  return this != internal_default_instance() && innerproduct_proto_ != NULL;
+  return opDef_case() == kInnerproductProto;
+}
+void NodeDef::set_has_innerproduct_proto() {
+  _oneof_case_[0] = kInnerproductProto;
 }
 void NodeDef::clear_innerproduct_proto() {
-  if (GetArenaNoVirtual() == NULL && innerproduct_proto_ != NULL) delete innerproduct_proto_;
-  innerproduct_proto_ = NULL;
+  if (has_innerproduct_proto()) {
+    delete opDef_.innerproduct_proto_;
+    clear_has_opDef();
+  }
 }
-const ::dataflow::InnerProductOpProto& NodeDef::innerproduct_proto() const {
+ const ::dataflow::InnerProductOpProto& NodeDef::innerproduct_proto() const {
   // @@protoc_insertion_point(field_get:dataflow.NodeDef.innerproduct_proto)
-  return innerproduct_proto_ != NULL ? *innerproduct_proto_
-                         : *::dataflow::InnerProductOpProto::internal_default_instance();
+  return has_innerproduct_proto()
+      ? *opDef_.innerproduct_proto_
+      : ::dataflow::InnerProductOpProto::default_instance();
 }
 ::dataflow::InnerProductOpProto* NodeDef::mutable_innerproduct_proto() {
-  
-  if (innerproduct_proto_ == NULL) {
-    innerproduct_proto_ = new ::dataflow::InnerProductOpProto;
+  if (!has_innerproduct_proto()) {
+    clear_opDef();
+    set_has_innerproduct_proto();
+    opDef_.innerproduct_proto_ = new ::dataflow::InnerProductOpProto;
   }
   // @@protoc_insertion_point(field_mutable:dataflow.NodeDef.innerproduct_proto)
-  return innerproduct_proto_;
+  return opDef_.innerproduct_proto_;
 }
 ::dataflow::InnerProductOpProto* NodeDef::release_innerproduct_proto() {
   // @@protoc_insertion_point(field_release:dataflow.NodeDef.innerproduct_proto)
-  
-  ::dataflow::InnerProductOpProto* temp = innerproduct_proto_;
-  innerproduct_proto_ = NULL;
-  return temp;
+  if (has_innerproduct_proto()) {
+    clear_has_opDef();
+    ::dataflow::InnerProductOpProto* temp = opDef_.innerproduct_proto_;
+    opDef_.innerproduct_proto_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
 }
 void NodeDef::set_allocated_innerproduct_proto(::dataflow::InnerProductOpProto* innerproduct_proto) {
-  delete innerproduct_proto_;
-  innerproduct_proto_ = innerproduct_proto;
+  clear_opDef();
   if (innerproduct_proto) {
-    
-  } else {
-    
+    set_has_innerproduct_proto();
+    opDef_.innerproduct_proto_ = innerproduct_proto;
   }
   // @@protoc_insertion_point(field_set_allocated:dataflow.NodeDef.innerproduct_proto)
 }
 
+bool NodeDef::has_opDef() const {
+  return opDef_case() != OPDEF_NOT_SET;
+}
+void NodeDef::clear_has_opDef() {
+  _oneof_case_[0] = OPDEF_NOT_SET;
+}
+NodeDef::OpDefCase NodeDef::opDef_case() const {
+  return NodeDef::OpDefCase(_oneof_case_[0]);
+}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
