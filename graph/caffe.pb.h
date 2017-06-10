@@ -3083,6 +3083,27 @@ class LayerProto : public ::google::protobuf::Message /* @@protoc_insertion_poin
   static const ::google::protobuf::Descriptor* descriptor();
   static const LayerProto& default_instance();
 
+  enum LayerDefCase {
+    kConvolutionProto = 106,
+    kLoaderProto = 107,
+    kInnerproductProto = 117,
+    kPoolingProto = 121,
+    kReluProto = 123,
+    kLrnProto = 118,
+    kSigmoidProto = 124,
+    kSoftmaxProto = 125,
+    kMultinomiallogisticlossProto = 130,
+    kSplitProto = 131,
+    kConcatProto = 132,
+    kBatchnormProto = 135,
+    kModelupdateProto = 136,
+    kNullupdateProto = 137,
+    kStoreProto = 139,
+    kLoadpartialmodelProto = 140,
+    kPlaceholderProto = 141,
+    LAYERDEF_NOT_SET = 0,
+  };
+
   static inline const LayerProto* internal_default_instance() {
     return reinterpret_cast<const LayerProto*>(
                &_LayerProto_default_instance_);
@@ -3318,6 +3339,7 @@ class LayerProto : public ::google::protobuf::Message /* @@protoc_insertion_poin
   ::caffe::PlaceholderProto* release_placeholder_proto();
   void set_allocated_placeholder_proto(::caffe::PlaceholderProto* placeholder_proto);
 
+  LayerDefCase LayerDef_case() const;
   // @@protoc_insertion_point(class_scope:caffe.LayerProto)
  private:
   void set_has_name();
@@ -3325,62 +3347,54 @@ class LayerProto : public ::google::protobuf::Message /* @@protoc_insertion_poin
   void set_has_type();
   void clear_has_type();
   void set_has_convolution_proto();
-  void clear_has_convolution_proto();
   void set_has_loader_proto();
-  void clear_has_loader_proto();
   void set_has_innerproduct_proto();
-  void clear_has_innerproduct_proto();
   void set_has_pooling_proto();
-  void clear_has_pooling_proto();
   void set_has_relu_proto();
-  void clear_has_relu_proto();
   void set_has_lrn_proto();
-  void clear_has_lrn_proto();
   void set_has_sigmoid_proto();
-  void clear_has_sigmoid_proto();
   void set_has_softmax_proto();
-  void clear_has_softmax_proto();
   void set_has_multinomiallogisticloss_proto();
-  void clear_has_multinomiallogisticloss_proto();
   void set_has_split_proto();
-  void clear_has_split_proto();
   void set_has_concat_proto();
-  void clear_has_concat_proto();
   void set_has_batchnorm_proto();
-  void clear_has_batchnorm_proto();
   void set_has_modelupdate_proto();
-  void clear_has_modelupdate_proto();
   void set_has_nullupdate_proto();
-  void clear_has_nullupdate_proto();
   void set_has_store_proto();
-  void clear_has_store_proto();
   void set_has_loadpartialmodel_proto();
-  void clear_has_loadpartialmodel_proto();
   void set_has_placeholder_proto();
-  void clear_has_placeholder_proto();
+
+  inline bool has_LayerDef() const;
+  void clear_LayerDef();
+  inline void clear_has_LayerDef();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable int _cached_size_;
   ::google::protobuf::internal::ArenaStringPtr name_;
   ::google::protobuf::internal::ArenaStringPtr type_;
-  ::caffe::ConvolutionProto* convolution_proto_;
-  ::caffe::LoaderProto* loader_proto_;
-  ::caffe::InnerProductProto* innerproduct_proto_;
-  ::caffe::PoolingProto* pooling_proto_;
-  ::caffe::ReLUProto* relu_proto_;
-  ::caffe::LRNProto* lrn_proto_;
-  ::caffe::SigmoidProto* sigmoid_proto_;
-  ::caffe::SoftmaxProto* softmax_proto_;
-  ::caffe::MultinomialLogisticLossProto* multinomiallogisticloss_proto_;
-  ::caffe::SplitProto* split_proto_;
-  ::caffe::ConcatProto* concat_proto_;
-  ::caffe::BatchNormProto* batchnorm_proto_;
-  ::caffe::ModelUpdateProto* modelupdate_proto_;
-  ::caffe::NullUpdateProto* nullupdate_proto_;
-  ::caffe::StoreProto* store_proto_;
-  ::caffe::LoadPartialModelProto* loadpartialmodel_proto_;
-  ::caffe::PlaceholderProto* placeholder_proto_;
+  union LayerDefUnion {
+    LayerDefUnion() {}
+    ::caffe::ConvolutionProto* convolution_proto_;
+    ::caffe::LoaderProto* loader_proto_;
+    ::caffe::InnerProductProto* innerproduct_proto_;
+    ::caffe::PoolingProto* pooling_proto_;
+    ::caffe::ReLUProto* relu_proto_;
+    ::caffe::LRNProto* lrn_proto_;
+    ::caffe::SigmoidProto* sigmoid_proto_;
+    ::caffe::SoftmaxProto* softmax_proto_;
+    ::caffe::MultinomialLogisticLossProto* multinomiallogisticloss_proto_;
+    ::caffe::SplitProto* split_proto_;
+    ::caffe::ConcatProto* concat_proto_;
+    ::caffe::BatchNormProto* batchnorm_proto_;
+    ::caffe::ModelUpdateProto* modelupdate_proto_;
+    ::caffe::NullUpdateProto* nullupdate_proto_;
+    ::caffe::StoreProto* store_proto_;
+    ::caffe::LoadPartialModelProto* loadpartialmodel_proto_;
+    ::caffe::PlaceholderProto* placeholder_proto_;
+  } LayerDef_;
+  ::google::protobuf::uint32 _oneof_case_[1];
+
   friend struct  protobuf_caffe_2eproto::TableStruct;
 };
 // -------------------------------------------------------------------
@@ -10018,769 +10032,829 @@ inline void LayerProto::set_allocated_type(::std::string* type) {
 
 // optional .caffe.ConvolutionProto convolution_proto = 106;
 inline bool LayerProto::has_convolution_proto() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
+  return LayerDef_case() == kConvolutionProto;
 }
 inline void LayerProto::set_has_convolution_proto() {
-  _has_bits_[0] |= 0x00000004u;
-}
-inline void LayerProto::clear_has_convolution_proto() {
-  _has_bits_[0] &= ~0x00000004u;
+  _oneof_case_[0] = kConvolutionProto;
 }
 inline void LayerProto::clear_convolution_proto() {
-  if (convolution_proto_ != NULL) convolution_proto_->::caffe::ConvolutionProto::Clear();
-  clear_has_convolution_proto();
+  if (has_convolution_proto()) {
+    delete LayerDef_.convolution_proto_;
+    clear_has_LayerDef();
+  }
 }
-inline const ::caffe::ConvolutionProto& LayerProto::convolution_proto() const {
+inline  const ::caffe::ConvolutionProto& LayerProto::convolution_proto() const {
   // @@protoc_insertion_point(field_get:caffe.LayerProto.convolution_proto)
-  return convolution_proto_ != NULL ? *convolution_proto_
-                         : *::caffe::ConvolutionProto::internal_default_instance();
+  return has_convolution_proto()
+      ? *LayerDef_.convolution_proto_
+      : ::caffe::ConvolutionProto::default_instance();
 }
 inline ::caffe::ConvolutionProto* LayerProto::mutable_convolution_proto() {
-  set_has_convolution_proto();
-  if (convolution_proto_ == NULL) {
-    convolution_proto_ = new ::caffe::ConvolutionProto;
+  if (!has_convolution_proto()) {
+    clear_LayerDef();
+    set_has_convolution_proto();
+    LayerDef_.convolution_proto_ = new ::caffe::ConvolutionProto;
   }
   // @@protoc_insertion_point(field_mutable:caffe.LayerProto.convolution_proto)
-  return convolution_proto_;
+  return LayerDef_.convolution_proto_;
 }
 inline ::caffe::ConvolutionProto* LayerProto::release_convolution_proto() {
   // @@protoc_insertion_point(field_release:caffe.LayerProto.convolution_proto)
-  clear_has_convolution_proto();
-  ::caffe::ConvolutionProto* temp = convolution_proto_;
-  convolution_proto_ = NULL;
-  return temp;
+  if (has_convolution_proto()) {
+    clear_has_LayerDef();
+    ::caffe::ConvolutionProto* temp = LayerDef_.convolution_proto_;
+    LayerDef_.convolution_proto_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
 }
 inline void LayerProto::set_allocated_convolution_proto(::caffe::ConvolutionProto* convolution_proto) {
-  delete convolution_proto_;
-  convolution_proto_ = convolution_proto;
+  clear_LayerDef();
   if (convolution_proto) {
     set_has_convolution_proto();
-  } else {
-    clear_has_convolution_proto();
+    LayerDef_.convolution_proto_ = convolution_proto;
   }
   // @@protoc_insertion_point(field_set_allocated:caffe.LayerProto.convolution_proto)
 }
 
 // optional .caffe.LoaderProto loader_proto = 107;
 inline bool LayerProto::has_loader_proto() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
+  return LayerDef_case() == kLoaderProto;
 }
 inline void LayerProto::set_has_loader_proto() {
-  _has_bits_[0] |= 0x00000008u;
-}
-inline void LayerProto::clear_has_loader_proto() {
-  _has_bits_[0] &= ~0x00000008u;
+  _oneof_case_[0] = kLoaderProto;
 }
 inline void LayerProto::clear_loader_proto() {
-  if (loader_proto_ != NULL) loader_proto_->::caffe::LoaderProto::Clear();
-  clear_has_loader_proto();
+  if (has_loader_proto()) {
+    delete LayerDef_.loader_proto_;
+    clear_has_LayerDef();
+  }
 }
-inline const ::caffe::LoaderProto& LayerProto::loader_proto() const {
+inline  const ::caffe::LoaderProto& LayerProto::loader_proto() const {
   // @@protoc_insertion_point(field_get:caffe.LayerProto.loader_proto)
-  return loader_proto_ != NULL ? *loader_proto_
-                         : *::caffe::LoaderProto::internal_default_instance();
+  return has_loader_proto()
+      ? *LayerDef_.loader_proto_
+      : ::caffe::LoaderProto::default_instance();
 }
 inline ::caffe::LoaderProto* LayerProto::mutable_loader_proto() {
-  set_has_loader_proto();
-  if (loader_proto_ == NULL) {
-    loader_proto_ = new ::caffe::LoaderProto;
+  if (!has_loader_proto()) {
+    clear_LayerDef();
+    set_has_loader_proto();
+    LayerDef_.loader_proto_ = new ::caffe::LoaderProto;
   }
   // @@protoc_insertion_point(field_mutable:caffe.LayerProto.loader_proto)
-  return loader_proto_;
+  return LayerDef_.loader_proto_;
 }
 inline ::caffe::LoaderProto* LayerProto::release_loader_proto() {
   // @@protoc_insertion_point(field_release:caffe.LayerProto.loader_proto)
-  clear_has_loader_proto();
-  ::caffe::LoaderProto* temp = loader_proto_;
-  loader_proto_ = NULL;
-  return temp;
+  if (has_loader_proto()) {
+    clear_has_LayerDef();
+    ::caffe::LoaderProto* temp = LayerDef_.loader_proto_;
+    LayerDef_.loader_proto_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
 }
 inline void LayerProto::set_allocated_loader_proto(::caffe::LoaderProto* loader_proto) {
-  delete loader_proto_;
-  loader_proto_ = loader_proto;
+  clear_LayerDef();
   if (loader_proto) {
     set_has_loader_proto();
-  } else {
-    clear_has_loader_proto();
+    LayerDef_.loader_proto_ = loader_proto;
   }
   // @@protoc_insertion_point(field_set_allocated:caffe.LayerProto.loader_proto)
 }
 
 // optional .caffe.InnerProductProto innerproduct_proto = 117;
 inline bool LayerProto::has_innerproduct_proto() const {
-  return (_has_bits_[0] & 0x00000010u) != 0;
+  return LayerDef_case() == kInnerproductProto;
 }
 inline void LayerProto::set_has_innerproduct_proto() {
-  _has_bits_[0] |= 0x00000010u;
-}
-inline void LayerProto::clear_has_innerproduct_proto() {
-  _has_bits_[0] &= ~0x00000010u;
+  _oneof_case_[0] = kInnerproductProto;
 }
 inline void LayerProto::clear_innerproduct_proto() {
-  if (innerproduct_proto_ != NULL) innerproduct_proto_->::caffe::InnerProductProto::Clear();
-  clear_has_innerproduct_proto();
+  if (has_innerproduct_proto()) {
+    delete LayerDef_.innerproduct_proto_;
+    clear_has_LayerDef();
+  }
 }
-inline const ::caffe::InnerProductProto& LayerProto::innerproduct_proto() const {
+inline  const ::caffe::InnerProductProto& LayerProto::innerproduct_proto() const {
   // @@protoc_insertion_point(field_get:caffe.LayerProto.innerproduct_proto)
-  return innerproduct_proto_ != NULL ? *innerproduct_proto_
-                         : *::caffe::InnerProductProto::internal_default_instance();
+  return has_innerproduct_proto()
+      ? *LayerDef_.innerproduct_proto_
+      : ::caffe::InnerProductProto::default_instance();
 }
 inline ::caffe::InnerProductProto* LayerProto::mutable_innerproduct_proto() {
-  set_has_innerproduct_proto();
-  if (innerproduct_proto_ == NULL) {
-    innerproduct_proto_ = new ::caffe::InnerProductProto;
+  if (!has_innerproduct_proto()) {
+    clear_LayerDef();
+    set_has_innerproduct_proto();
+    LayerDef_.innerproduct_proto_ = new ::caffe::InnerProductProto;
   }
   // @@protoc_insertion_point(field_mutable:caffe.LayerProto.innerproduct_proto)
-  return innerproduct_proto_;
+  return LayerDef_.innerproduct_proto_;
 }
 inline ::caffe::InnerProductProto* LayerProto::release_innerproduct_proto() {
   // @@protoc_insertion_point(field_release:caffe.LayerProto.innerproduct_proto)
-  clear_has_innerproduct_proto();
-  ::caffe::InnerProductProto* temp = innerproduct_proto_;
-  innerproduct_proto_ = NULL;
-  return temp;
+  if (has_innerproduct_proto()) {
+    clear_has_LayerDef();
+    ::caffe::InnerProductProto* temp = LayerDef_.innerproduct_proto_;
+    LayerDef_.innerproduct_proto_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
 }
 inline void LayerProto::set_allocated_innerproduct_proto(::caffe::InnerProductProto* innerproduct_proto) {
-  delete innerproduct_proto_;
-  innerproduct_proto_ = innerproduct_proto;
+  clear_LayerDef();
   if (innerproduct_proto) {
     set_has_innerproduct_proto();
-  } else {
-    clear_has_innerproduct_proto();
+    LayerDef_.innerproduct_proto_ = innerproduct_proto;
   }
   // @@protoc_insertion_point(field_set_allocated:caffe.LayerProto.innerproduct_proto)
 }
 
 // optional .caffe.PoolingProto pooling_proto = 121;
 inline bool LayerProto::has_pooling_proto() const {
-  return (_has_bits_[0] & 0x00000020u) != 0;
+  return LayerDef_case() == kPoolingProto;
 }
 inline void LayerProto::set_has_pooling_proto() {
-  _has_bits_[0] |= 0x00000020u;
-}
-inline void LayerProto::clear_has_pooling_proto() {
-  _has_bits_[0] &= ~0x00000020u;
+  _oneof_case_[0] = kPoolingProto;
 }
 inline void LayerProto::clear_pooling_proto() {
-  if (pooling_proto_ != NULL) pooling_proto_->::caffe::PoolingProto::Clear();
-  clear_has_pooling_proto();
+  if (has_pooling_proto()) {
+    delete LayerDef_.pooling_proto_;
+    clear_has_LayerDef();
+  }
 }
-inline const ::caffe::PoolingProto& LayerProto::pooling_proto() const {
+inline  const ::caffe::PoolingProto& LayerProto::pooling_proto() const {
   // @@protoc_insertion_point(field_get:caffe.LayerProto.pooling_proto)
-  return pooling_proto_ != NULL ? *pooling_proto_
-                         : *::caffe::PoolingProto::internal_default_instance();
+  return has_pooling_proto()
+      ? *LayerDef_.pooling_proto_
+      : ::caffe::PoolingProto::default_instance();
 }
 inline ::caffe::PoolingProto* LayerProto::mutable_pooling_proto() {
-  set_has_pooling_proto();
-  if (pooling_proto_ == NULL) {
-    pooling_proto_ = new ::caffe::PoolingProto;
+  if (!has_pooling_proto()) {
+    clear_LayerDef();
+    set_has_pooling_proto();
+    LayerDef_.pooling_proto_ = new ::caffe::PoolingProto;
   }
   // @@protoc_insertion_point(field_mutable:caffe.LayerProto.pooling_proto)
-  return pooling_proto_;
+  return LayerDef_.pooling_proto_;
 }
 inline ::caffe::PoolingProto* LayerProto::release_pooling_proto() {
   // @@protoc_insertion_point(field_release:caffe.LayerProto.pooling_proto)
-  clear_has_pooling_proto();
-  ::caffe::PoolingProto* temp = pooling_proto_;
-  pooling_proto_ = NULL;
-  return temp;
+  if (has_pooling_proto()) {
+    clear_has_LayerDef();
+    ::caffe::PoolingProto* temp = LayerDef_.pooling_proto_;
+    LayerDef_.pooling_proto_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
 }
 inline void LayerProto::set_allocated_pooling_proto(::caffe::PoolingProto* pooling_proto) {
-  delete pooling_proto_;
-  pooling_proto_ = pooling_proto;
+  clear_LayerDef();
   if (pooling_proto) {
     set_has_pooling_proto();
-  } else {
-    clear_has_pooling_proto();
+    LayerDef_.pooling_proto_ = pooling_proto;
   }
   // @@protoc_insertion_point(field_set_allocated:caffe.LayerProto.pooling_proto)
 }
 
 // optional .caffe.ReLUProto relu_proto = 123;
 inline bool LayerProto::has_relu_proto() const {
-  return (_has_bits_[0] & 0x00000040u) != 0;
+  return LayerDef_case() == kReluProto;
 }
 inline void LayerProto::set_has_relu_proto() {
-  _has_bits_[0] |= 0x00000040u;
-}
-inline void LayerProto::clear_has_relu_proto() {
-  _has_bits_[0] &= ~0x00000040u;
+  _oneof_case_[0] = kReluProto;
 }
 inline void LayerProto::clear_relu_proto() {
-  if (relu_proto_ != NULL) relu_proto_->::caffe::ReLUProto::Clear();
-  clear_has_relu_proto();
+  if (has_relu_proto()) {
+    delete LayerDef_.relu_proto_;
+    clear_has_LayerDef();
+  }
 }
-inline const ::caffe::ReLUProto& LayerProto::relu_proto() const {
+inline  const ::caffe::ReLUProto& LayerProto::relu_proto() const {
   // @@protoc_insertion_point(field_get:caffe.LayerProto.relu_proto)
-  return relu_proto_ != NULL ? *relu_proto_
-                         : *::caffe::ReLUProto::internal_default_instance();
+  return has_relu_proto()
+      ? *LayerDef_.relu_proto_
+      : ::caffe::ReLUProto::default_instance();
 }
 inline ::caffe::ReLUProto* LayerProto::mutable_relu_proto() {
-  set_has_relu_proto();
-  if (relu_proto_ == NULL) {
-    relu_proto_ = new ::caffe::ReLUProto;
+  if (!has_relu_proto()) {
+    clear_LayerDef();
+    set_has_relu_proto();
+    LayerDef_.relu_proto_ = new ::caffe::ReLUProto;
   }
   // @@protoc_insertion_point(field_mutable:caffe.LayerProto.relu_proto)
-  return relu_proto_;
+  return LayerDef_.relu_proto_;
 }
 inline ::caffe::ReLUProto* LayerProto::release_relu_proto() {
   // @@protoc_insertion_point(field_release:caffe.LayerProto.relu_proto)
-  clear_has_relu_proto();
-  ::caffe::ReLUProto* temp = relu_proto_;
-  relu_proto_ = NULL;
-  return temp;
+  if (has_relu_proto()) {
+    clear_has_LayerDef();
+    ::caffe::ReLUProto* temp = LayerDef_.relu_proto_;
+    LayerDef_.relu_proto_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
 }
 inline void LayerProto::set_allocated_relu_proto(::caffe::ReLUProto* relu_proto) {
-  delete relu_proto_;
-  relu_proto_ = relu_proto;
+  clear_LayerDef();
   if (relu_proto) {
     set_has_relu_proto();
-  } else {
-    clear_has_relu_proto();
+    LayerDef_.relu_proto_ = relu_proto;
   }
   // @@protoc_insertion_point(field_set_allocated:caffe.LayerProto.relu_proto)
 }
 
 // optional .caffe.LRNProto lrn_proto = 118;
 inline bool LayerProto::has_lrn_proto() const {
-  return (_has_bits_[0] & 0x00000080u) != 0;
+  return LayerDef_case() == kLrnProto;
 }
 inline void LayerProto::set_has_lrn_proto() {
-  _has_bits_[0] |= 0x00000080u;
-}
-inline void LayerProto::clear_has_lrn_proto() {
-  _has_bits_[0] &= ~0x00000080u;
+  _oneof_case_[0] = kLrnProto;
 }
 inline void LayerProto::clear_lrn_proto() {
-  if (lrn_proto_ != NULL) lrn_proto_->::caffe::LRNProto::Clear();
-  clear_has_lrn_proto();
+  if (has_lrn_proto()) {
+    delete LayerDef_.lrn_proto_;
+    clear_has_LayerDef();
+  }
 }
-inline const ::caffe::LRNProto& LayerProto::lrn_proto() const {
+inline  const ::caffe::LRNProto& LayerProto::lrn_proto() const {
   // @@protoc_insertion_point(field_get:caffe.LayerProto.lrn_proto)
-  return lrn_proto_ != NULL ? *lrn_proto_
-                         : *::caffe::LRNProto::internal_default_instance();
+  return has_lrn_proto()
+      ? *LayerDef_.lrn_proto_
+      : ::caffe::LRNProto::default_instance();
 }
 inline ::caffe::LRNProto* LayerProto::mutable_lrn_proto() {
-  set_has_lrn_proto();
-  if (lrn_proto_ == NULL) {
-    lrn_proto_ = new ::caffe::LRNProto;
+  if (!has_lrn_proto()) {
+    clear_LayerDef();
+    set_has_lrn_proto();
+    LayerDef_.lrn_proto_ = new ::caffe::LRNProto;
   }
   // @@protoc_insertion_point(field_mutable:caffe.LayerProto.lrn_proto)
-  return lrn_proto_;
+  return LayerDef_.lrn_proto_;
 }
 inline ::caffe::LRNProto* LayerProto::release_lrn_proto() {
   // @@protoc_insertion_point(field_release:caffe.LayerProto.lrn_proto)
-  clear_has_lrn_proto();
-  ::caffe::LRNProto* temp = lrn_proto_;
-  lrn_proto_ = NULL;
-  return temp;
+  if (has_lrn_proto()) {
+    clear_has_LayerDef();
+    ::caffe::LRNProto* temp = LayerDef_.lrn_proto_;
+    LayerDef_.lrn_proto_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
 }
 inline void LayerProto::set_allocated_lrn_proto(::caffe::LRNProto* lrn_proto) {
-  delete lrn_proto_;
-  lrn_proto_ = lrn_proto;
+  clear_LayerDef();
   if (lrn_proto) {
     set_has_lrn_proto();
-  } else {
-    clear_has_lrn_proto();
+    LayerDef_.lrn_proto_ = lrn_proto;
   }
   // @@protoc_insertion_point(field_set_allocated:caffe.LayerProto.lrn_proto)
 }
 
 // optional .caffe.SigmoidProto sigmoid_proto = 124;
 inline bool LayerProto::has_sigmoid_proto() const {
-  return (_has_bits_[0] & 0x00000100u) != 0;
+  return LayerDef_case() == kSigmoidProto;
 }
 inline void LayerProto::set_has_sigmoid_proto() {
-  _has_bits_[0] |= 0x00000100u;
-}
-inline void LayerProto::clear_has_sigmoid_proto() {
-  _has_bits_[0] &= ~0x00000100u;
+  _oneof_case_[0] = kSigmoidProto;
 }
 inline void LayerProto::clear_sigmoid_proto() {
-  if (sigmoid_proto_ != NULL) sigmoid_proto_->::caffe::SigmoidProto::Clear();
-  clear_has_sigmoid_proto();
+  if (has_sigmoid_proto()) {
+    delete LayerDef_.sigmoid_proto_;
+    clear_has_LayerDef();
+  }
 }
-inline const ::caffe::SigmoidProto& LayerProto::sigmoid_proto() const {
+inline  const ::caffe::SigmoidProto& LayerProto::sigmoid_proto() const {
   // @@protoc_insertion_point(field_get:caffe.LayerProto.sigmoid_proto)
-  return sigmoid_proto_ != NULL ? *sigmoid_proto_
-                         : *::caffe::SigmoidProto::internal_default_instance();
+  return has_sigmoid_proto()
+      ? *LayerDef_.sigmoid_proto_
+      : ::caffe::SigmoidProto::default_instance();
 }
 inline ::caffe::SigmoidProto* LayerProto::mutable_sigmoid_proto() {
-  set_has_sigmoid_proto();
-  if (sigmoid_proto_ == NULL) {
-    sigmoid_proto_ = new ::caffe::SigmoidProto;
+  if (!has_sigmoid_proto()) {
+    clear_LayerDef();
+    set_has_sigmoid_proto();
+    LayerDef_.sigmoid_proto_ = new ::caffe::SigmoidProto;
   }
   // @@protoc_insertion_point(field_mutable:caffe.LayerProto.sigmoid_proto)
-  return sigmoid_proto_;
+  return LayerDef_.sigmoid_proto_;
 }
 inline ::caffe::SigmoidProto* LayerProto::release_sigmoid_proto() {
   // @@protoc_insertion_point(field_release:caffe.LayerProto.sigmoid_proto)
-  clear_has_sigmoid_proto();
-  ::caffe::SigmoidProto* temp = sigmoid_proto_;
-  sigmoid_proto_ = NULL;
-  return temp;
+  if (has_sigmoid_proto()) {
+    clear_has_LayerDef();
+    ::caffe::SigmoidProto* temp = LayerDef_.sigmoid_proto_;
+    LayerDef_.sigmoid_proto_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
 }
 inline void LayerProto::set_allocated_sigmoid_proto(::caffe::SigmoidProto* sigmoid_proto) {
-  delete sigmoid_proto_;
-  sigmoid_proto_ = sigmoid_proto;
+  clear_LayerDef();
   if (sigmoid_proto) {
     set_has_sigmoid_proto();
-  } else {
-    clear_has_sigmoid_proto();
+    LayerDef_.sigmoid_proto_ = sigmoid_proto;
   }
   // @@protoc_insertion_point(field_set_allocated:caffe.LayerProto.sigmoid_proto)
 }
 
 // optional .caffe.SoftmaxProto softmax_proto = 125;
 inline bool LayerProto::has_softmax_proto() const {
-  return (_has_bits_[0] & 0x00000200u) != 0;
+  return LayerDef_case() == kSoftmaxProto;
 }
 inline void LayerProto::set_has_softmax_proto() {
-  _has_bits_[0] |= 0x00000200u;
-}
-inline void LayerProto::clear_has_softmax_proto() {
-  _has_bits_[0] &= ~0x00000200u;
+  _oneof_case_[0] = kSoftmaxProto;
 }
 inline void LayerProto::clear_softmax_proto() {
-  if (softmax_proto_ != NULL) softmax_proto_->::caffe::SoftmaxProto::Clear();
-  clear_has_softmax_proto();
+  if (has_softmax_proto()) {
+    delete LayerDef_.softmax_proto_;
+    clear_has_LayerDef();
+  }
 }
-inline const ::caffe::SoftmaxProto& LayerProto::softmax_proto() const {
+inline  const ::caffe::SoftmaxProto& LayerProto::softmax_proto() const {
   // @@protoc_insertion_point(field_get:caffe.LayerProto.softmax_proto)
-  return softmax_proto_ != NULL ? *softmax_proto_
-                         : *::caffe::SoftmaxProto::internal_default_instance();
+  return has_softmax_proto()
+      ? *LayerDef_.softmax_proto_
+      : ::caffe::SoftmaxProto::default_instance();
 }
 inline ::caffe::SoftmaxProto* LayerProto::mutable_softmax_proto() {
-  set_has_softmax_proto();
-  if (softmax_proto_ == NULL) {
-    softmax_proto_ = new ::caffe::SoftmaxProto;
+  if (!has_softmax_proto()) {
+    clear_LayerDef();
+    set_has_softmax_proto();
+    LayerDef_.softmax_proto_ = new ::caffe::SoftmaxProto;
   }
   // @@protoc_insertion_point(field_mutable:caffe.LayerProto.softmax_proto)
-  return softmax_proto_;
+  return LayerDef_.softmax_proto_;
 }
 inline ::caffe::SoftmaxProto* LayerProto::release_softmax_proto() {
   // @@protoc_insertion_point(field_release:caffe.LayerProto.softmax_proto)
-  clear_has_softmax_proto();
-  ::caffe::SoftmaxProto* temp = softmax_proto_;
-  softmax_proto_ = NULL;
-  return temp;
+  if (has_softmax_proto()) {
+    clear_has_LayerDef();
+    ::caffe::SoftmaxProto* temp = LayerDef_.softmax_proto_;
+    LayerDef_.softmax_proto_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
 }
 inline void LayerProto::set_allocated_softmax_proto(::caffe::SoftmaxProto* softmax_proto) {
-  delete softmax_proto_;
-  softmax_proto_ = softmax_proto;
+  clear_LayerDef();
   if (softmax_proto) {
     set_has_softmax_proto();
-  } else {
-    clear_has_softmax_proto();
+    LayerDef_.softmax_proto_ = softmax_proto;
   }
   // @@protoc_insertion_point(field_set_allocated:caffe.LayerProto.softmax_proto)
 }
 
 // optional .caffe.MultinomialLogisticLossProto multinomiallogisticloss_proto = 130;
 inline bool LayerProto::has_multinomiallogisticloss_proto() const {
-  return (_has_bits_[0] & 0x00000400u) != 0;
+  return LayerDef_case() == kMultinomiallogisticlossProto;
 }
 inline void LayerProto::set_has_multinomiallogisticloss_proto() {
-  _has_bits_[0] |= 0x00000400u;
-}
-inline void LayerProto::clear_has_multinomiallogisticloss_proto() {
-  _has_bits_[0] &= ~0x00000400u;
+  _oneof_case_[0] = kMultinomiallogisticlossProto;
 }
 inline void LayerProto::clear_multinomiallogisticloss_proto() {
-  if (multinomiallogisticloss_proto_ != NULL) multinomiallogisticloss_proto_->::caffe::MultinomialLogisticLossProto::Clear();
-  clear_has_multinomiallogisticloss_proto();
+  if (has_multinomiallogisticloss_proto()) {
+    delete LayerDef_.multinomiallogisticloss_proto_;
+    clear_has_LayerDef();
+  }
 }
-inline const ::caffe::MultinomialLogisticLossProto& LayerProto::multinomiallogisticloss_proto() const {
+inline  const ::caffe::MultinomialLogisticLossProto& LayerProto::multinomiallogisticloss_proto() const {
   // @@protoc_insertion_point(field_get:caffe.LayerProto.multinomiallogisticloss_proto)
-  return multinomiallogisticloss_proto_ != NULL ? *multinomiallogisticloss_proto_
-                         : *::caffe::MultinomialLogisticLossProto::internal_default_instance();
+  return has_multinomiallogisticloss_proto()
+      ? *LayerDef_.multinomiallogisticloss_proto_
+      : ::caffe::MultinomialLogisticLossProto::default_instance();
 }
 inline ::caffe::MultinomialLogisticLossProto* LayerProto::mutable_multinomiallogisticloss_proto() {
-  set_has_multinomiallogisticloss_proto();
-  if (multinomiallogisticloss_proto_ == NULL) {
-    multinomiallogisticloss_proto_ = new ::caffe::MultinomialLogisticLossProto;
+  if (!has_multinomiallogisticloss_proto()) {
+    clear_LayerDef();
+    set_has_multinomiallogisticloss_proto();
+    LayerDef_.multinomiallogisticloss_proto_ = new ::caffe::MultinomialLogisticLossProto;
   }
   // @@protoc_insertion_point(field_mutable:caffe.LayerProto.multinomiallogisticloss_proto)
-  return multinomiallogisticloss_proto_;
+  return LayerDef_.multinomiallogisticloss_proto_;
 }
 inline ::caffe::MultinomialLogisticLossProto* LayerProto::release_multinomiallogisticloss_proto() {
   // @@protoc_insertion_point(field_release:caffe.LayerProto.multinomiallogisticloss_proto)
-  clear_has_multinomiallogisticloss_proto();
-  ::caffe::MultinomialLogisticLossProto* temp = multinomiallogisticloss_proto_;
-  multinomiallogisticloss_proto_ = NULL;
-  return temp;
+  if (has_multinomiallogisticloss_proto()) {
+    clear_has_LayerDef();
+    ::caffe::MultinomialLogisticLossProto* temp = LayerDef_.multinomiallogisticloss_proto_;
+    LayerDef_.multinomiallogisticloss_proto_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
 }
 inline void LayerProto::set_allocated_multinomiallogisticloss_proto(::caffe::MultinomialLogisticLossProto* multinomiallogisticloss_proto) {
-  delete multinomiallogisticloss_proto_;
-  multinomiallogisticloss_proto_ = multinomiallogisticloss_proto;
+  clear_LayerDef();
   if (multinomiallogisticloss_proto) {
     set_has_multinomiallogisticloss_proto();
-  } else {
-    clear_has_multinomiallogisticloss_proto();
+    LayerDef_.multinomiallogisticloss_proto_ = multinomiallogisticloss_proto;
   }
   // @@protoc_insertion_point(field_set_allocated:caffe.LayerProto.multinomiallogisticloss_proto)
 }
 
 // optional .caffe.SplitProto split_proto = 131;
 inline bool LayerProto::has_split_proto() const {
-  return (_has_bits_[0] & 0x00000800u) != 0;
+  return LayerDef_case() == kSplitProto;
 }
 inline void LayerProto::set_has_split_proto() {
-  _has_bits_[0] |= 0x00000800u;
-}
-inline void LayerProto::clear_has_split_proto() {
-  _has_bits_[0] &= ~0x00000800u;
+  _oneof_case_[0] = kSplitProto;
 }
 inline void LayerProto::clear_split_proto() {
-  if (split_proto_ != NULL) split_proto_->::caffe::SplitProto::Clear();
-  clear_has_split_proto();
+  if (has_split_proto()) {
+    delete LayerDef_.split_proto_;
+    clear_has_LayerDef();
+  }
 }
-inline const ::caffe::SplitProto& LayerProto::split_proto() const {
+inline  const ::caffe::SplitProto& LayerProto::split_proto() const {
   // @@protoc_insertion_point(field_get:caffe.LayerProto.split_proto)
-  return split_proto_ != NULL ? *split_proto_
-                         : *::caffe::SplitProto::internal_default_instance();
+  return has_split_proto()
+      ? *LayerDef_.split_proto_
+      : ::caffe::SplitProto::default_instance();
 }
 inline ::caffe::SplitProto* LayerProto::mutable_split_proto() {
-  set_has_split_proto();
-  if (split_proto_ == NULL) {
-    split_proto_ = new ::caffe::SplitProto;
+  if (!has_split_proto()) {
+    clear_LayerDef();
+    set_has_split_proto();
+    LayerDef_.split_proto_ = new ::caffe::SplitProto;
   }
   // @@protoc_insertion_point(field_mutable:caffe.LayerProto.split_proto)
-  return split_proto_;
+  return LayerDef_.split_proto_;
 }
 inline ::caffe::SplitProto* LayerProto::release_split_proto() {
   // @@protoc_insertion_point(field_release:caffe.LayerProto.split_proto)
-  clear_has_split_proto();
-  ::caffe::SplitProto* temp = split_proto_;
-  split_proto_ = NULL;
-  return temp;
+  if (has_split_proto()) {
+    clear_has_LayerDef();
+    ::caffe::SplitProto* temp = LayerDef_.split_proto_;
+    LayerDef_.split_proto_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
 }
 inline void LayerProto::set_allocated_split_proto(::caffe::SplitProto* split_proto) {
-  delete split_proto_;
-  split_proto_ = split_proto;
+  clear_LayerDef();
   if (split_proto) {
     set_has_split_proto();
-  } else {
-    clear_has_split_proto();
+    LayerDef_.split_proto_ = split_proto;
   }
   // @@protoc_insertion_point(field_set_allocated:caffe.LayerProto.split_proto)
 }
 
 // optional .caffe.ConcatProto concat_proto = 132;
 inline bool LayerProto::has_concat_proto() const {
-  return (_has_bits_[0] & 0x00001000u) != 0;
+  return LayerDef_case() == kConcatProto;
 }
 inline void LayerProto::set_has_concat_proto() {
-  _has_bits_[0] |= 0x00001000u;
-}
-inline void LayerProto::clear_has_concat_proto() {
-  _has_bits_[0] &= ~0x00001000u;
+  _oneof_case_[0] = kConcatProto;
 }
 inline void LayerProto::clear_concat_proto() {
-  if (concat_proto_ != NULL) concat_proto_->::caffe::ConcatProto::Clear();
-  clear_has_concat_proto();
+  if (has_concat_proto()) {
+    delete LayerDef_.concat_proto_;
+    clear_has_LayerDef();
+  }
 }
-inline const ::caffe::ConcatProto& LayerProto::concat_proto() const {
+inline  const ::caffe::ConcatProto& LayerProto::concat_proto() const {
   // @@protoc_insertion_point(field_get:caffe.LayerProto.concat_proto)
-  return concat_proto_ != NULL ? *concat_proto_
-                         : *::caffe::ConcatProto::internal_default_instance();
+  return has_concat_proto()
+      ? *LayerDef_.concat_proto_
+      : ::caffe::ConcatProto::default_instance();
 }
 inline ::caffe::ConcatProto* LayerProto::mutable_concat_proto() {
-  set_has_concat_proto();
-  if (concat_proto_ == NULL) {
-    concat_proto_ = new ::caffe::ConcatProto;
+  if (!has_concat_proto()) {
+    clear_LayerDef();
+    set_has_concat_proto();
+    LayerDef_.concat_proto_ = new ::caffe::ConcatProto;
   }
   // @@protoc_insertion_point(field_mutable:caffe.LayerProto.concat_proto)
-  return concat_proto_;
+  return LayerDef_.concat_proto_;
 }
 inline ::caffe::ConcatProto* LayerProto::release_concat_proto() {
   // @@protoc_insertion_point(field_release:caffe.LayerProto.concat_proto)
-  clear_has_concat_proto();
-  ::caffe::ConcatProto* temp = concat_proto_;
-  concat_proto_ = NULL;
-  return temp;
+  if (has_concat_proto()) {
+    clear_has_LayerDef();
+    ::caffe::ConcatProto* temp = LayerDef_.concat_proto_;
+    LayerDef_.concat_proto_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
 }
 inline void LayerProto::set_allocated_concat_proto(::caffe::ConcatProto* concat_proto) {
-  delete concat_proto_;
-  concat_proto_ = concat_proto;
+  clear_LayerDef();
   if (concat_proto) {
     set_has_concat_proto();
-  } else {
-    clear_has_concat_proto();
+    LayerDef_.concat_proto_ = concat_proto;
   }
   // @@protoc_insertion_point(field_set_allocated:caffe.LayerProto.concat_proto)
 }
 
 // optional .caffe.BatchNormProto batchnorm_proto = 135;
 inline bool LayerProto::has_batchnorm_proto() const {
-  return (_has_bits_[0] & 0x00002000u) != 0;
+  return LayerDef_case() == kBatchnormProto;
 }
 inline void LayerProto::set_has_batchnorm_proto() {
-  _has_bits_[0] |= 0x00002000u;
-}
-inline void LayerProto::clear_has_batchnorm_proto() {
-  _has_bits_[0] &= ~0x00002000u;
+  _oneof_case_[0] = kBatchnormProto;
 }
 inline void LayerProto::clear_batchnorm_proto() {
-  if (batchnorm_proto_ != NULL) batchnorm_proto_->::caffe::BatchNormProto::Clear();
-  clear_has_batchnorm_proto();
+  if (has_batchnorm_proto()) {
+    delete LayerDef_.batchnorm_proto_;
+    clear_has_LayerDef();
+  }
 }
-inline const ::caffe::BatchNormProto& LayerProto::batchnorm_proto() const {
+inline  const ::caffe::BatchNormProto& LayerProto::batchnorm_proto() const {
   // @@protoc_insertion_point(field_get:caffe.LayerProto.batchnorm_proto)
-  return batchnorm_proto_ != NULL ? *batchnorm_proto_
-                         : *::caffe::BatchNormProto::internal_default_instance();
+  return has_batchnorm_proto()
+      ? *LayerDef_.batchnorm_proto_
+      : ::caffe::BatchNormProto::default_instance();
 }
 inline ::caffe::BatchNormProto* LayerProto::mutable_batchnorm_proto() {
-  set_has_batchnorm_proto();
-  if (batchnorm_proto_ == NULL) {
-    batchnorm_proto_ = new ::caffe::BatchNormProto;
+  if (!has_batchnorm_proto()) {
+    clear_LayerDef();
+    set_has_batchnorm_proto();
+    LayerDef_.batchnorm_proto_ = new ::caffe::BatchNormProto;
   }
   // @@protoc_insertion_point(field_mutable:caffe.LayerProto.batchnorm_proto)
-  return batchnorm_proto_;
+  return LayerDef_.batchnorm_proto_;
 }
 inline ::caffe::BatchNormProto* LayerProto::release_batchnorm_proto() {
   // @@protoc_insertion_point(field_release:caffe.LayerProto.batchnorm_proto)
-  clear_has_batchnorm_proto();
-  ::caffe::BatchNormProto* temp = batchnorm_proto_;
-  batchnorm_proto_ = NULL;
-  return temp;
+  if (has_batchnorm_proto()) {
+    clear_has_LayerDef();
+    ::caffe::BatchNormProto* temp = LayerDef_.batchnorm_proto_;
+    LayerDef_.batchnorm_proto_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
 }
 inline void LayerProto::set_allocated_batchnorm_proto(::caffe::BatchNormProto* batchnorm_proto) {
-  delete batchnorm_proto_;
-  batchnorm_proto_ = batchnorm_proto;
+  clear_LayerDef();
   if (batchnorm_proto) {
     set_has_batchnorm_proto();
-  } else {
-    clear_has_batchnorm_proto();
+    LayerDef_.batchnorm_proto_ = batchnorm_proto;
   }
   // @@protoc_insertion_point(field_set_allocated:caffe.LayerProto.batchnorm_proto)
 }
 
 // optional .caffe.ModelUpdateProto modelupdate_proto = 136;
 inline bool LayerProto::has_modelupdate_proto() const {
-  return (_has_bits_[0] & 0x00004000u) != 0;
+  return LayerDef_case() == kModelupdateProto;
 }
 inline void LayerProto::set_has_modelupdate_proto() {
-  _has_bits_[0] |= 0x00004000u;
-}
-inline void LayerProto::clear_has_modelupdate_proto() {
-  _has_bits_[0] &= ~0x00004000u;
+  _oneof_case_[0] = kModelupdateProto;
 }
 inline void LayerProto::clear_modelupdate_proto() {
-  if (modelupdate_proto_ != NULL) modelupdate_proto_->::caffe::ModelUpdateProto::Clear();
-  clear_has_modelupdate_proto();
+  if (has_modelupdate_proto()) {
+    delete LayerDef_.modelupdate_proto_;
+    clear_has_LayerDef();
+  }
 }
-inline const ::caffe::ModelUpdateProto& LayerProto::modelupdate_proto() const {
+inline  const ::caffe::ModelUpdateProto& LayerProto::modelupdate_proto() const {
   // @@protoc_insertion_point(field_get:caffe.LayerProto.modelupdate_proto)
-  return modelupdate_proto_ != NULL ? *modelupdate_proto_
-                         : *::caffe::ModelUpdateProto::internal_default_instance();
+  return has_modelupdate_proto()
+      ? *LayerDef_.modelupdate_proto_
+      : ::caffe::ModelUpdateProto::default_instance();
 }
 inline ::caffe::ModelUpdateProto* LayerProto::mutable_modelupdate_proto() {
-  set_has_modelupdate_proto();
-  if (modelupdate_proto_ == NULL) {
-    modelupdate_proto_ = new ::caffe::ModelUpdateProto;
+  if (!has_modelupdate_proto()) {
+    clear_LayerDef();
+    set_has_modelupdate_proto();
+    LayerDef_.modelupdate_proto_ = new ::caffe::ModelUpdateProto;
   }
   // @@protoc_insertion_point(field_mutable:caffe.LayerProto.modelupdate_proto)
-  return modelupdate_proto_;
+  return LayerDef_.modelupdate_proto_;
 }
 inline ::caffe::ModelUpdateProto* LayerProto::release_modelupdate_proto() {
   // @@protoc_insertion_point(field_release:caffe.LayerProto.modelupdate_proto)
-  clear_has_modelupdate_proto();
-  ::caffe::ModelUpdateProto* temp = modelupdate_proto_;
-  modelupdate_proto_ = NULL;
-  return temp;
+  if (has_modelupdate_proto()) {
+    clear_has_LayerDef();
+    ::caffe::ModelUpdateProto* temp = LayerDef_.modelupdate_proto_;
+    LayerDef_.modelupdate_proto_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
 }
 inline void LayerProto::set_allocated_modelupdate_proto(::caffe::ModelUpdateProto* modelupdate_proto) {
-  delete modelupdate_proto_;
-  modelupdate_proto_ = modelupdate_proto;
+  clear_LayerDef();
   if (modelupdate_proto) {
     set_has_modelupdate_proto();
-  } else {
-    clear_has_modelupdate_proto();
+    LayerDef_.modelupdate_proto_ = modelupdate_proto;
   }
   // @@protoc_insertion_point(field_set_allocated:caffe.LayerProto.modelupdate_proto)
 }
 
 // optional .caffe.NullUpdateProto nullupdate_proto = 137;
 inline bool LayerProto::has_nullupdate_proto() const {
-  return (_has_bits_[0] & 0x00008000u) != 0;
+  return LayerDef_case() == kNullupdateProto;
 }
 inline void LayerProto::set_has_nullupdate_proto() {
-  _has_bits_[0] |= 0x00008000u;
-}
-inline void LayerProto::clear_has_nullupdate_proto() {
-  _has_bits_[0] &= ~0x00008000u;
+  _oneof_case_[0] = kNullupdateProto;
 }
 inline void LayerProto::clear_nullupdate_proto() {
-  if (nullupdate_proto_ != NULL) nullupdate_proto_->::caffe::NullUpdateProto::Clear();
-  clear_has_nullupdate_proto();
+  if (has_nullupdate_proto()) {
+    delete LayerDef_.nullupdate_proto_;
+    clear_has_LayerDef();
+  }
 }
-inline const ::caffe::NullUpdateProto& LayerProto::nullupdate_proto() const {
+inline  const ::caffe::NullUpdateProto& LayerProto::nullupdate_proto() const {
   // @@protoc_insertion_point(field_get:caffe.LayerProto.nullupdate_proto)
-  return nullupdate_proto_ != NULL ? *nullupdate_proto_
-                         : *::caffe::NullUpdateProto::internal_default_instance();
+  return has_nullupdate_proto()
+      ? *LayerDef_.nullupdate_proto_
+      : ::caffe::NullUpdateProto::default_instance();
 }
 inline ::caffe::NullUpdateProto* LayerProto::mutable_nullupdate_proto() {
-  set_has_nullupdate_proto();
-  if (nullupdate_proto_ == NULL) {
-    nullupdate_proto_ = new ::caffe::NullUpdateProto;
+  if (!has_nullupdate_proto()) {
+    clear_LayerDef();
+    set_has_nullupdate_proto();
+    LayerDef_.nullupdate_proto_ = new ::caffe::NullUpdateProto;
   }
   // @@protoc_insertion_point(field_mutable:caffe.LayerProto.nullupdate_proto)
-  return nullupdate_proto_;
+  return LayerDef_.nullupdate_proto_;
 }
 inline ::caffe::NullUpdateProto* LayerProto::release_nullupdate_proto() {
   // @@protoc_insertion_point(field_release:caffe.LayerProto.nullupdate_proto)
-  clear_has_nullupdate_proto();
-  ::caffe::NullUpdateProto* temp = nullupdate_proto_;
-  nullupdate_proto_ = NULL;
-  return temp;
+  if (has_nullupdate_proto()) {
+    clear_has_LayerDef();
+    ::caffe::NullUpdateProto* temp = LayerDef_.nullupdate_proto_;
+    LayerDef_.nullupdate_proto_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
 }
 inline void LayerProto::set_allocated_nullupdate_proto(::caffe::NullUpdateProto* nullupdate_proto) {
-  delete nullupdate_proto_;
-  nullupdate_proto_ = nullupdate_proto;
+  clear_LayerDef();
   if (nullupdate_proto) {
     set_has_nullupdate_proto();
-  } else {
-    clear_has_nullupdate_proto();
+    LayerDef_.nullupdate_proto_ = nullupdate_proto;
   }
   // @@protoc_insertion_point(field_set_allocated:caffe.LayerProto.nullupdate_proto)
 }
 
 // optional .caffe.StoreProto store_proto = 139;
 inline bool LayerProto::has_store_proto() const {
-  return (_has_bits_[0] & 0x00010000u) != 0;
+  return LayerDef_case() == kStoreProto;
 }
 inline void LayerProto::set_has_store_proto() {
-  _has_bits_[0] |= 0x00010000u;
-}
-inline void LayerProto::clear_has_store_proto() {
-  _has_bits_[0] &= ~0x00010000u;
+  _oneof_case_[0] = kStoreProto;
 }
 inline void LayerProto::clear_store_proto() {
-  if (store_proto_ != NULL) store_proto_->::caffe::StoreProto::Clear();
-  clear_has_store_proto();
+  if (has_store_proto()) {
+    delete LayerDef_.store_proto_;
+    clear_has_LayerDef();
+  }
 }
-inline const ::caffe::StoreProto& LayerProto::store_proto() const {
+inline  const ::caffe::StoreProto& LayerProto::store_proto() const {
   // @@protoc_insertion_point(field_get:caffe.LayerProto.store_proto)
-  return store_proto_ != NULL ? *store_proto_
-                         : *::caffe::StoreProto::internal_default_instance();
+  return has_store_proto()
+      ? *LayerDef_.store_proto_
+      : ::caffe::StoreProto::default_instance();
 }
 inline ::caffe::StoreProto* LayerProto::mutable_store_proto() {
-  set_has_store_proto();
-  if (store_proto_ == NULL) {
-    store_proto_ = new ::caffe::StoreProto;
+  if (!has_store_proto()) {
+    clear_LayerDef();
+    set_has_store_proto();
+    LayerDef_.store_proto_ = new ::caffe::StoreProto;
   }
   // @@protoc_insertion_point(field_mutable:caffe.LayerProto.store_proto)
-  return store_proto_;
+  return LayerDef_.store_proto_;
 }
 inline ::caffe::StoreProto* LayerProto::release_store_proto() {
   // @@protoc_insertion_point(field_release:caffe.LayerProto.store_proto)
-  clear_has_store_proto();
-  ::caffe::StoreProto* temp = store_proto_;
-  store_proto_ = NULL;
-  return temp;
+  if (has_store_proto()) {
+    clear_has_LayerDef();
+    ::caffe::StoreProto* temp = LayerDef_.store_proto_;
+    LayerDef_.store_proto_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
 }
 inline void LayerProto::set_allocated_store_proto(::caffe::StoreProto* store_proto) {
-  delete store_proto_;
-  store_proto_ = store_proto;
+  clear_LayerDef();
   if (store_proto) {
     set_has_store_proto();
-  } else {
-    clear_has_store_proto();
+    LayerDef_.store_proto_ = store_proto;
   }
   // @@protoc_insertion_point(field_set_allocated:caffe.LayerProto.store_proto)
 }
 
 // optional .caffe.LoadPartialModelProto loadpartialmodel_proto = 140;
 inline bool LayerProto::has_loadpartialmodel_proto() const {
-  return (_has_bits_[0] & 0x00020000u) != 0;
+  return LayerDef_case() == kLoadpartialmodelProto;
 }
 inline void LayerProto::set_has_loadpartialmodel_proto() {
-  _has_bits_[0] |= 0x00020000u;
-}
-inline void LayerProto::clear_has_loadpartialmodel_proto() {
-  _has_bits_[0] &= ~0x00020000u;
+  _oneof_case_[0] = kLoadpartialmodelProto;
 }
 inline void LayerProto::clear_loadpartialmodel_proto() {
-  if (loadpartialmodel_proto_ != NULL) loadpartialmodel_proto_->::caffe::LoadPartialModelProto::Clear();
-  clear_has_loadpartialmodel_proto();
+  if (has_loadpartialmodel_proto()) {
+    delete LayerDef_.loadpartialmodel_proto_;
+    clear_has_LayerDef();
+  }
 }
-inline const ::caffe::LoadPartialModelProto& LayerProto::loadpartialmodel_proto() const {
+inline  const ::caffe::LoadPartialModelProto& LayerProto::loadpartialmodel_proto() const {
   // @@protoc_insertion_point(field_get:caffe.LayerProto.loadpartialmodel_proto)
-  return loadpartialmodel_proto_ != NULL ? *loadpartialmodel_proto_
-                         : *::caffe::LoadPartialModelProto::internal_default_instance();
+  return has_loadpartialmodel_proto()
+      ? *LayerDef_.loadpartialmodel_proto_
+      : ::caffe::LoadPartialModelProto::default_instance();
 }
 inline ::caffe::LoadPartialModelProto* LayerProto::mutable_loadpartialmodel_proto() {
-  set_has_loadpartialmodel_proto();
-  if (loadpartialmodel_proto_ == NULL) {
-    loadpartialmodel_proto_ = new ::caffe::LoadPartialModelProto;
+  if (!has_loadpartialmodel_proto()) {
+    clear_LayerDef();
+    set_has_loadpartialmodel_proto();
+    LayerDef_.loadpartialmodel_proto_ = new ::caffe::LoadPartialModelProto;
   }
   // @@protoc_insertion_point(field_mutable:caffe.LayerProto.loadpartialmodel_proto)
-  return loadpartialmodel_proto_;
+  return LayerDef_.loadpartialmodel_proto_;
 }
 inline ::caffe::LoadPartialModelProto* LayerProto::release_loadpartialmodel_proto() {
   // @@protoc_insertion_point(field_release:caffe.LayerProto.loadpartialmodel_proto)
-  clear_has_loadpartialmodel_proto();
-  ::caffe::LoadPartialModelProto* temp = loadpartialmodel_proto_;
-  loadpartialmodel_proto_ = NULL;
-  return temp;
+  if (has_loadpartialmodel_proto()) {
+    clear_has_LayerDef();
+    ::caffe::LoadPartialModelProto* temp = LayerDef_.loadpartialmodel_proto_;
+    LayerDef_.loadpartialmodel_proto_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
 }
 inline void LayerProto::set_allocated_loadpartialmodel_proto(::caffe::LoadPartialModelProto* loadpartialmodel_proto) {
-  delete loadpartialmodel_proto_;
-  loadpartialmodel_proto_ = loadpartialmodel_proto;
+  clear_LayerDef();
   if (loadpartialmodel_proto) {
     set_has_loadpartialmodel_proto();
-  } else {
-    clear_has_loadpartialmodel_proto();
+    LayerDef_.loadpartialmodel_proto_ = loadpartialmodel_proto;
   }
   // @@protoc_insertion_point(field_set_allocated:caffe.LayerProto.loadpartialmodel_proto)
 }
 
 // optional .caffe.PlaceholderProto placeholder_proto = 141;
 inline bool LayerProto::has_placeholder_proto() const {
-  return (_has_bits_[0] & 0x00040000u) != 0;
+  return LayerDef_case() == kPlaceholderProto;
 }
 inline void LayerProto::set_has_placeholder_proto() {
-  _has_bits_[0] |= 0x00040000u;
-}
-inline void LayerProto::clear_has_placeholder_proto() {
-  _has_bits_[0] &= ~0x00040000u;
+  _oneof_case_[0] = kPlaceholderProto;
 }
 inline void LayerProto::clear_placeholder_proto() {
-  if (placeholder_proto_ != NULL) placeholder_proto_->::caffe::PlaceholderProto::Clear();
-  clear_has_placeholder_proto();
+  if (has_placeholder_proto()) {
+    delete LayerDef_.placeholder_proto_;
+    clear_has_LayerDef();
+  }
 }
-inline const ::caffe::PlaceholderProto& LayerProto::placeholder_proto() const {
+inline  const ::caffe::PlaceholderProto& LayerProto::placeholder_proto() const {
   // @@protoc_insertion_point(field_get:caffe.LayerProto.placeholder_proto)
-  return placeholder_proto_ != NULL ? *placeholder_proto_
-                         : *::caffe::PlaceholderProto::internal_default_instance();
+  return has_placeholder_proto()
+      ? *LayerDef_.placeholder_proto_
+      : ::caffe::PlaceholderProto::default_instance();
 }
 inline ::caffe::PlaceholderProto* LayerProto::mutable_placeholder_proto() {
-  set_has_placeholder_proto();
-  if (placeholder_proto_ == NULL) {
-    placeholder_proto_ = new ::caffe::PlaceholderProto;
+  if (!has_placeholder_proto()) {
+    clear_LayerDef();
+    set_has_placeholder_proto();
+    LayerDef_.placeholder_proto_ = new ::caffe::PlaceholderProto;
   }
   // @@protoc_insertion_point(field_mutable:caffe.LayerProto.placeholder_proto)
-  return placeholder_proto_;
+  return LayerDef_.placeholder_proto_;
 }
 inline ::caffe::PlaceholderProto* LayerProto::release_placeholder_proto() {
   // @@protoc_insertion_point(field_release:caffe.LayerProto.placeholder_proto)
-  clear_has_placeholder_proto();
-  ::caffe::PlaceholderProto* temp = placeholder_proto_;
-  placeholder_proto_ = NULL;
-  return temp;
+  if (has_placeholder_proto()) {
+    clear_has_LayerDef();
+    ::caffe::PlaceholderProto* temp = LayerDef_.placeholder_proto_;
+    LayerDef_.placeholder_proto_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
 }
 inline void LayerProto::set_allocated_placeholder_proto(::caffe::PlaceholderProto* placeholder_proto) {
-  delete placeholder_proto_;
-  placeholder_proto_ = placeholder_proto;
+  clear_LayerDef();
   if (placeholder_proto) {
     set_has_placeholder_proto();
-  } else {
-    clear_has_placeholder_proto();
+    LayerDef_.placeholder_proto_ = placeholder_proto;
   }
   // @@protoc_insertion_point(field_set_allocated:caffe.LayerProto.placeholder_proto)
 }
 
+inline bool LayerProto::has_LayerDef() const {
+  return LayerDef_case() != LAYERDEF_NOT_SET;
+}
+inline void LayerProto::clear_has_LayerDef() {
+  _oneof_case_[0] = LAYERDEF_NOT_SET;
+}
+inline LayerProto::LayerDefCase LayerProto::LayerDef_case() const {
+  return LayerProto::LayerDefCase(_oneof_case_[0]);
+}
 // -------------------------------------------------------------------
 
 // BatchNormProto
